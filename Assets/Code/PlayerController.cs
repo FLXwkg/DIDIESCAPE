@@ -9,15 +9,40 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     private float verticalVelocity = 0f;
+    private float currentSpeed;
+    private float slowTimer = 0f;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        currentSpeed = speed;
+    }
+
+    public void ApplySlow(float factor, float duration)
+    {
+        currentSpeed = speed * factor;
+        slowTimer = duration;
+        Debug.Log("Ralenti !");
+    }
+
+    public void ApplyBoost(float factor, float duration)
+    {
+        currentSpeed = speed * factor;
+        slowTimer = duration;
+        Debug.Log("Boost !");
     }
 
     void Update()
     {
+        // Gestion du slow/boost timer
+        if (slowTimer > 0f)
+        {
+            slowTimer -= Time.deltaTime;
+            if (slowTimer <= 0f)
+                currentSpeed = speed;
+        }
+
         float h = 0f;
         float v = 0f;
 
@@ -28,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
         // Gravité stable
         if (controller.isGrounded)
-            verticalVelocity = -0.5f; // Petite force vers le bas pour rester collé
+            verticalVelocity = -0.5f;
         else
             verticalVelocity -= 9.81f * Time.deltaTime;
 
@@ -44,7 +69,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            move = moveDir * speed;
+            move = moveDir * currentSpeed;
 
             if (animator != null)
                 animator.SetBool("isRunning", true);
@@ -55,7 +80,6 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isRunning", false);
         }
 
-        // Applique le mouvement + gravité en un seul Move
         move.y = verticalVelocity;
         controller.Move(move * Time.deltaTime);
     }
