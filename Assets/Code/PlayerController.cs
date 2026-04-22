@@ -3,27 +3,20 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 6f;
+    public float rotationSpeed = 720f;
     public Transform cameraTransform;
 
     private CharacterController controller;
+    private Animator animator;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        Debug.Log("=== PlayerController START ===");
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (Input.anyKey)
-            Debug.Log("UNE TOUCHE EST PRESSEE");
-
-        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.W))
-            Debug.Log("Z ou W pressé !");
-
-        if (Input.anyKeyDown)
-            Debug.Log("Touche pressée : " + Input.inputString);
-
         float h = 0f;
         float v = 0f;
 
@@ -39,7 +32,19 @@ public class PlayerController : MonoBehaviour
             Vector3 moveDir = cameraTransform.forward * v + cameraTransform.right * h;
             moveDir.y = 0f;
             moveDir.Normalize();
+
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
             controller.Move(moveDir * speed * Time.deltaTime);
+
+            if (animator != null)
+                animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            if (animator != null)
+                animator.SetBool("isRunning", false);
         }
 
         if (!controller.isGrounded)
