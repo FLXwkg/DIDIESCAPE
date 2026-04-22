@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Animator animator;
+    private float verticalVelocity = 0f;
 
     void Start()
     {
@@ -25,7 +26,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.A)) h = -1f;
         if (Input.GetKey(KeyCode.D)) h = 1f;
 
+        // Gravité stable
+        if (controller.isGrounded)
+            verticalVelocity = -0.5f; // Petite force vers le bas pour rester collé
+        else
+            verticalVelocity -= 9.81f * Time.deltaTime;
+
         Vector3 direction = new Vector3(h, 0f, v).normalized;
+        Vector3 move = Vector3.zero;
 
         if (direction.magnitude >= 0.1f && cameraTransform != null)
         {
@@ -36,7 +44,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            controller.Move(moveDir * speed * Time.deltaTime);
+            move = moveDir * speed;
 
             if (animator != null)
                 animator.SetBool("isRunning", true);
@@ -47,7 +55,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isRunning", false);
         }
 
-        if (!controller.isGrounded)
-            controller.Move(Vector3.down * 9.81f * Time.deltaTime);
+        // Applique le mouvement + gravité en un seul Move
+        move.y = verticalVelocity;
+        controller.Move(move * Time.deltaTime);
     }
 }

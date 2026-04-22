@@ -5,21 +5,22 @@ using System.Collections;
 public class CriminalAI : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private Animator animator;
     public Transform destination;
 
     IEnumerator Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
 
         yield return null;
 
         if (!agent.isOnNavMesh)
         {
-            Debug.LogError("Le dummy n'est PAS sur le NavMesh ! Position : " + transform.position);
+            Debug.LogError("Le dummy n'est PAS sur le NavMesh !");
             yield break;
         }
+
+        agent.updateRotation = true;
+        agent.angularSpeed = 0f;
 
         if (destination != null)
         {
@@ -29,10 +30,11 @@ public class CriminalAI : MonoBehaviour
 
     void Update()
     {
-        if (animator != null && agent != null)
+        if (agent != null && agent.isOnNavMesh && agent.velocity.magnitude > 0.1f)
         {
-            // Active l'animation quand le dummy bouge
-            animator.SetBool("isRunning", agent.velocity.magnitude > 0.1f);
+            // Tourne le personnage dans la direction du mouvement
+            Quaternion targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
         }
     }
 }
