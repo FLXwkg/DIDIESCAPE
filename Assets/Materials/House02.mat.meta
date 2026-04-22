@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 327d27a20ea6f694a83e483951d836bf
+timeCreated: 1553586085
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 145778
+  packageName: Crash Scene
+  packageVersion: 1.0
+  assetPath: Assets/Materials/House02.mat
+  uploadId: 339209

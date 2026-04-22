@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 552927ccf2fdad3428e89e5104d91912
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 145778
+  packageName: Crash Scene
+  packageVersion: 1.0
+  assetPath: Assets/SampleScenes/Navmesh/CarAI.asset
+  uploadId: 339209

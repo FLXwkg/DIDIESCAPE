@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d08f91df3bd212f429df17f53ce2f364
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 145778
+  packageName: Crash Scene
+  packageVersion: 1.0
+  assetPath: Assets/Standard Assets/2D/Scripts/PlatformerCharacter2D.cs
+  uploadId: 339209

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b297a60c0ddf0ee4dabefaf158fb097d
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 145778
+  packageName: Crash Scene
+  packageVersion: 1.0
+  assetPath: Assets/Standard Assets/Vehicles/Aircraft/Scripts/AeroplaneUserControl2Axis.cs
+  uploadId: 339209

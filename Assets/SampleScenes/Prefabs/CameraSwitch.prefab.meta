@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fdc378243b95c2144aa66bfc382d1b75
+timeCreated: 1447332698
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 145778
+  packageName: Crash Scene
+  packageVersion: 1.0
+  assetPath: Assets/SampleScenes/Prefabs/CameraSwitch.prefab
+  uploadId: 339209
