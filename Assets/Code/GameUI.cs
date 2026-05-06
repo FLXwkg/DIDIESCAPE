@@ -1,46 +1,41 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameUI : MonoBehaviour
 {
-    private static string message = "";
-    private static bool showMessage = false;
+    public GameObject gameOverPanel;
+    public TextMeshProUGUI messageText;
+    public static GameUI instance;
+
+    void Awake()
+    {
+        instance = this;
+        gameOverPanel.SetActive(false);
+    }
 
     public static void ShowMessage(string msg)
     {
-        message = msg;
-        showMessage = true;
+        if (instance == null) return;
+        instance.messageText.text = msg;
+        instance.gameOverPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    void OnGUI()
+    public void Rejouer()
     {
-        if (showMessage)
-        {
-            GUIStyle style = new GUIStyle();
-            style.fontSize = 50;
-            style.fontStyle = FontStyle.Bold;
-            style.alignment = TextAnchor.MiddleCenter;
-            style.normal.textColor = Color.white;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-            GUI.Label(new Rect(0, Screen.height / 2 - 50, Screen.width, 100), message, style);
+    public void MenuPrincipal()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 50), "Rejouer"))
-            {
-                showMessage = false;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 120, 200, 50), "Menu Principal"))
-            {
-                showMessage = false;
-                SceneManager.LoadScene("MainMenu");
-            }
-
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 190, 200, 50), "Quitter"))
-            {
-                Application.Quit();
-                Debug.Log("Quit !");
-            }
-        }
+    public void Quitter()
+    {
+        Application.Quit();
+        Debug.Log("Quit !");
     }
 }
