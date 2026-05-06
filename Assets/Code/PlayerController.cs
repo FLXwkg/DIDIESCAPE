@@ -73,11 +73,15 @@ public class PlayerController : MonoBehaviour
 
             if (animator != null)
                 animator.SetBool("isRunning", true);
+            if (AudioManager.instance != null)
+                AudioManager.instance.StartFootsteps();
         }
         else
         {
             if (animator != null)
                 animator.SetBool("isRunning", false);
+            if (AudioManager.instance != null)
+                AudioManager.instance.StopFootsteps();
         }
 
         move.y = verticalVelocity;

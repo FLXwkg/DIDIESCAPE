@@ -27,6 +27,7 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().ApplyBoost(factor, duration);
+            AudioManager.instance.PlayPickup();
             Destroy(gameObject);
         }
     }

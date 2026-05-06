@@ -67,6 +67,9 @@ public class CriminalAI : MonoBehaviour
     void GameOver(bool playerWins)
     {
         gameOver = true;
+        
+        if (AudioManager.instance != null)
+            AudioManager.instance.StopFootsteps();
 
         if (agent != null)
         {
@@ -78,10 +81,6 @@ public class CriminalAI : MonoBehaviour
         if (animator != null)
             animator.speed = 0f;
 
-        // Freeze la position du criminel
-        GetComponent<Rigidbody>().isKinematic = true;
-
-        // Arrête le joueur
         var player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -92,8 +91,14 @@ public class CriminalAI : MonoBehaviour
         }
 
         if (playerWins)
+        {
+            AudioManager.instance.PlayVictory();
             GameUI.ShowMessage("VICTOIRE !");
+        }
         else
+        {
+            AudioManager.instance.PlayGameOver();
             GameUI.ShowMessage("DÉFAITE !");
+        }
     }
 }

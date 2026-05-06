@@ -13,7 +13,7 @@ public class SlowZone : MonoBehaviour
             if (player != null)
             {
                 player.ApplySlow(slowFactor, slowDuration);
-                Debug.Log("Joueur ralenti par une zone !");
+                AudioManager.instance.PlaySlow();
             }
         }
     }
